@@ -1,0 +1,137 @@
+backend:
+  name: github
+  repo: eankriss/My-Portfolio
+  branch: main
+  # Sveltia CMS uses its own hosted OAuth service by default, so no
+  # authentication server of your own is required.
+
+# Where uploaded images are stored, and how they are referenced on the site.
+# The CMS requires an absolute public path; assets/js/render.js rewrites the
+# leading "/" to "./" when rendering, so paths still resolve under the
+# GitHub Pages sub-path (/My-Portfolio/).
+media_folder: assets/images/uploads
+public_folder: /assets/images/uploads
+
+# Lets you edit content from a local dev server (see README-ADMIN.md).
+local_backend: true
+
+collections:
+  - name: content
+    label: Site Content
+    files:
+      - name: site
+        label: Portfolio Content
+        file: content/content.json
+        fields:
+          - { name: hero, label: Hero, widget: object, fields: [
+              { name: image, label: Photo, widget: image },
+              { name: role_prefix, label: Role prefix, widget: string, hint: "Text before the animated words, e.g. 'Associate'" },
+              { name: typed_words, label: Animated words, widget: list, required: false, field: { name: word, label: Word, widget: string } },
+              { name: name, label: Full name, widget: string },
+              { name: email, label: Email, widget: string },
+              { name: phone, label: Phone, widget: string },
+              { name: cv_file, label: CV file, widget: file },
+              { name: cv_label, label: CV button label, widget: string, default: "Download CV" }
+            ] }
+          - name: socials
+            label: Social links (used in hero and footer)
+            widget: list
+            required: false
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Label, widget: string }
+              - name: icon
+                label: Icon
+                widget: select
+                options:
+                  - { label: LinkedIn, value: logo-linkedin }
+                  - { label: GitHub, value: logo-github }
+                  - { label: Facebook, value: logo-facebook }
+                  - { label: Instagram, value: logo-instagram }
+                  - { label: X (Twitter), value: logo-x }
+                  - { label: YouTube, value: logo-youtube }
+                  - { label: TikTok, value: logo-tiktok }
+                  - { label: Discord, value: logo-discord }
+              - { name: url, label: URL, widget: string }
+          - { name: projects, label: Projects, widget: object, collapsed: true, fields: [
+              { name: subtitle, label: Section subtitle, widget: string },
+              { name: title, label: Section title, widget: string },
+              { name: items, label: Projects, widget: list, required: false, summary: "{{fields.title}}",
+                hint: "Leave empty to hide the Projects section and its nav link.", fields: [
+                  { name: title, label: Title, widget: string },
+                  { name: image, label: Screenshot, widget: image },
+                  { name: url, label: Link, widget: string },
+                  { name: tags, label: Tag lines, widget: list, required: false, field: { name: tag, label: Tag line, widget: string },
+                    hint: "One line per row, e.g. 'HTML | CSS | JS'" }
+                ] }
+            ] }
+          - { name: skills, label: Skills, widget: object, collapsed: true, fields: [
+              { name: subtitle, label: Section subtitle, widget: string },
+              { name: title, label: Section title, widget: string },
+              { name: background, label: Background image, widget: image },
+              { name: items, label: Skills, widget: list, required: false, summary: "{{fields.name}} — {{fields.level}}%", fields: [
+                  { name: name, label: Skill, widget: string },
+                  { name: level, label: Level (%), widget: number, value_type: int, min: 0, max: 100 }
+                ] }
+            ] }
+          - { name: experience, label: Work Experience, widget: object, collapsed: true, fields: [
+              { name: subtitle, label: Section subtitle, widget: string },
+              { name: title, label: Section title, widget: string },
+              { name: items, label: Positions, widget: list, required: false, summary: "{{fields.role}}", fields: [
+                  { name: period, label: Period, widget: string },
+                  { name: role, label: Job title, widget: string },
+                  { name: address, label: Company / address, widget: string }
+                ] }
+            ] }
+          - { name: certificates, label: Certifications, widget: object, collapsed: true, fields: [
+              { name: subtitle, label: Section subtitle, widget: string },
+              { name: title, label: Section title, widget: string },
+              { name: items, label: Certificates, widget: list, required: false, summary: "{{fields.title}}", fields: [
+                  { name: title, label: Title, widget: string },
+                  { name: date, label: Date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, format: "YYYY-MM-DD" },
+                  { name: image, label: Certificate image, widget: image },
+                  { name: url, label: Verification link, widget: string, required: false, default: "#certificates" }
+                ] }
+            ] }
+          - { name: contact, label: Contact, widget: object, collapsed: true, fields: [
+              { name: subtitle, label: Section subtitle, widget: string },
+              { name: title, label: Section title, widget: string },
+              { name: text, label: Intro text, widget: text },
+              { name: address, label: Address, widget: string },
+              { name: phone, label: Phone, widget: string },
+              { name: email, label: Email, widget: string },
+              { name: web3forms_key, label: Web3Forms access key, widget: string }
+            ] }
+          - { name: footer, label: Footer, widget: object, collapsed: true, fields: [
+              { name: copyright, label: Copyright line, widget: string }
+            ] }
+
+  - name: blog
+    label: Blogs
+    files:
+      - name: posts
+        label: Blog Posts
+        file: content/blog.json
+        fields:
+          - { name: subtitle, label: Section subtitle, widget: string, default: "Blogs" }
+          - { name: title, label: Home page section title, widget: string, default: "Latest Posts" }
+          - { name: archive_title, label: Archive page title, widget: string, default: "All Posts" }
+          - name: posts
+            label: Posts
+            label_singular: Post
+            widget: list
+            required: false
+            summary: "{{fields.date}} — {{fields.title}}"
+            collapsed: true
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: slug, label: URL slug, widget: string,
+                  hint: "Lowercase, dashes instead of spaces — it becomes post.html?slug=your-slug. Don't change it once shared." }
+              - { name: date, label: Date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, format: "YYYY-MM-DD" }
+              - { name: published, label: Published, widget: boolean, default: true,
+                  hint: "Turn off to keep the post out of the site while you work on it." }
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: excerpt, label: Excerpt, widget: text, required: false,
+                  hint: "Short teaser shown on the cards. Two or three sentences." }
+              - { name: tags, label: Tags, widget: list, required: false, field: { name: tag, label: Tag, widget: string } }
+              - { name: body, label: Body, widget: markdown }

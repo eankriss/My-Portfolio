@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs — Kryz-Ian</title>
+
+  <!-- apply the saved theme (default: light) before paint to avoid a flash -->
+  <script>
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem("theme"); } catch (e) {}
+      if (theme !== "light" && theme !== "dark") theme = "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+
+  <link rel="shortcut icon" href="./kryz.png" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body class="page-sticky-footer">
+
+  <!-- HEADER -->
+
+  <header class="header active" data-header>
+    <div class="container">
+
+      <a href="./index.html" class="logo">Kryz-Ian</a>
+
+      <nav class="navbar" data-navbar>
+        <a href="./index.html" class="logo navbar-logo" data-nav-logo>Kryz-Ian</a>
+
+        <ul class="navbar-list">
+
+          <li>
+            <a href="./index.html#home" class="navbar-link" data-nav-link>Home</a>
+          </li>
+
+          <li>
+            <a href="./index.html#portfolio" class="navbar-link" data-nav-link>Projects</a>
+          </li>
+
+          <li>
+            <a href="./index.html#skills" class="navbar-link" data-nav-link>Skills</a>
+          </li>
+
+          <li>
+            <a href="./index.html#work-experience" class="navbar-link" data-nav-link>Work Experience</a>
+          </li>
+
+          <li>
+            <a href="./index.html#certificates" class="navbar-link" data-nav-link>Certifications</a>
+          </li>
+
+          <li>
+            <a href="./blog.html" class="navbar-link active" aria-current="page" data-nav-link>Blogs</a>
+          </li>
+
+          <li>
+            <a href="./index.html#contact" class="navbar-link" data-nav-link>Contact</a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <button class="theme-toggle" aria-label="switch to dark mode" data-theme-toggle>
+        <ion-icon name="moon-outline" class="icon-moon" aria-hidden="true"></ion-icon>
+        <ion-icon name="sunny-outline" class="icon-sun" aria-hidden="true"></ion-icon>
+      </button>
+
+      <div class="nav-overlay" data-nav-overlay></div>
+
+      <button class="nav-toggle-btn" aria-label="toggle menu" aria-expanded="false" data-nav-toggler>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+      </button>
+
+    </div>
+  </header>
+
+  <main>
+    <article>
+
+      <section class="section blog page-section" aria-label="blog archive">
+        <div class="container">
+
+          <p class="section-subtitle" data-blog-subtitle></p>
+
+          <h1 class="h2 section-title" data-blog-title></h1>
+
+          <ul class="blog-list" data-blog-list></ul>
+
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+
+      <section class="section contact" id="contact" aria-label="contact">
+        <div class="container">
+
+          <div class="contact-content">
+
+            <p class="section-subtitle" data-contact-subtitle></p>
+
+            <h2 class="h2 section-title" data-contact-title></h2>
+
+            <p class="section-text" data-contact-text></p>
+
+            <ul class="contact-list" data-contact-list></ul>
+
+          </div>
+
+          <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="contact-form">
+
+            <input type="hidden" name="access_key" value="" data-web3forms-key>
+
+            <input type="text" id="name" name="name" aria-label="name" placeholder="Name" required class="input-field">
+
+            <input type="email" id="email" name="email_address" aria-label="email" placeholder="Email" required
+              class="input-field">
+
+            <textarea name="message" id="message" aria-label="message" placeholder="Message" required
+              class="input-field"></textarea>
+
+            <button type="submit" class="submit-btn">
+              <span class="span">Submit</span>
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </button>
+
+          </form>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+    <div class="container">
+
+      <p class="copyright" data-copyright></p>
+
+      <ul class="social-list" data-social-list></ul>
+
+    </div>
+  </footer>
+
+  <script src="./assets/js/common.js" defer></script>
+  <script src="./assets/js/blog.js" defer></script>
+  <script src="./assets/js/script.js" defer></script>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

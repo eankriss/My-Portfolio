@@ -1,0 +1,418 @@
+{
+  "hero": {
+    "image": "./assets/images/kryz01.jpg",
+    "role_prefix": "Associate",
+    "typed_words": [
+      "Web Developer"
+    ],
+    "name": "Kryz-Ian L. Calaustro",
+    "email": "calaustro.kryzian11@gmail.com",
+    "phone": "09453084255",
+    "cv_file": "./assets/files/CALAUSTRO, Kryz-Ian L.-CV.pdf",
+    "cv_label": "Download CV"
+  },
+  "socials": [
+    {
+      "label": "LinkedIn",
+      "icon": "logo-linkedin",
+      "url": "https://www.linkedin.com/in/kryz-ian-calaustro-303167190/"
+    },
+    {
+      "label": "GitHub",
+      "icon": "logo-github",
+      "url": "https://github.com/eankriss"
+    },
+    {
+      "label": "Facebook",
+      "icon": "logo-facebook",
+      "url": "https://www.facebook.com/kryzian11"
+    },
+    {
+      "label": "Instagram",
+      "icon": "logo-instagram",
+      "url": "https://www.instagram.com/_kryzian/"
+    },
+    {
+      "label": "X",
+      "icon": "logo-x",
+      "url": "https://x.com/kryz_ean"
+    }
+  ],
+  "projects": {
+    "subtitle": "My Projects",
+    "title": "What Projects Have I Done?",
+    "items": [
+      {
+        "title": "Platinum Touch Industries",
+        "image": "/assets/images/uploads/PTI.webp",
+        "url": "https://pti-llc.net/",
+        "tags": [
+          "WordPress | CMS | Elementor | ACF"
+        ]
+      },
+      {
+        "title": "JTY Pacific Collections Services Inc.",
+        "image": "/assets/images/uploads/JTY.webp",
+        "url": "https://jtypacific.com/",
+        "tags": [
+          "WordPress | CMS| Elementor | JegKit"
+        ]
+      },
+      {
+        "title": "Jeff Javierto",
+        "image": "/assets/images/uploads/Jeff Javierto.webp",
+        "url": "https://jeffjavierto.com/",
+        "tags": [
+          "WordPress | CMS | Elementor"
+        ]
+      },
+      {
+        "title": "Savers Group Holdings Inc.",
+        "image": "/assets/images/uploads/Savers.webp",
+        "url": "https://saversgroupholdings.com/",
+        "tags": [
+          "WordPress | CMS | Elementor"
+        ]
+      },
+      {
+        "title": "Ameritel BPO Services Inc. Website",
+        "image": "./assets/images/Projects/AMERITEL.png",
+        "url": "https://ameritelbposervices.wordpress.com/",
+        "tags": [
+          "WordPress | CMS | INTERNSHIP"
+        ]
+      },
+      {
+        "title": "For the Love of Bikes Website",
+        "image": "./assets/images/Projects/BIKE.png",
+        "url": "https://fortheloveofbicyclesblog.wordpress.com/",
+        "tags": [
+          "WordPress | CMS | WORDPRESS CERTIFICATION"
+        ]
+      },
+      {
+        "title": "Test-Phil Website",
+        "image": "./assets/images/Projects/TEST.png",
+        "url": "https://testphil7.wordpress.com/",
+        "tags": [
+          "WordPress | CMS | WORDPRESS CERTIFICATION"
+        ]
+      },
+      {
+        "title": "Tee-Clothing Shop Website",
+        "image": "./assets/images/Projects/SHOPIFY.jfif",
+        "url": "https://c5fc31-d8.myshopify.com",
+        "tags": [
+          "SHOPIFY | CMS | SHOPIFY CERTIFICATION"
+        ]
+      },
+      {
+        "title": "Garduino Mobile Application",
+        "image": "./assets/images/Projects/GARDUINO.png",
+        "url": "https://drive.google.com/drive/folders/1uO36nLBt5XVD-tFSDeEMjbnuDIr7eIRh?usp=sharing",
+        "tags": [
+          "JAVA | CAPSTONE PROJECT"
+        ]
+      },
+      {
+        "title": "Del Mar Resort Booking System",
+        "image": "./assets/images/Projects/DEL MAR.jfif",
+        "url": "#portfolio",
+        "tags": [
+          "HTML | CSS | JS | PHP | MYSQL",
+          "BOOTSTRAP | XAMPP"
+        ]
+      },
+      {
+        "title": "Balucuc High School Web Student Grading System",
+        "image": "./assets/images/Projects/BHS.jfif",
+        "url": "https://drive.google.com/drive/folders/1hcCIoG_UmXE3KxKKwpfgu4he4WnrsRki?usp=sharing",
+        "tags": [
+          "HTML | CSS | JS | PHP | MYSQL",
+          "LESS | XAMPP"
+        ]
+      },
+      {
+        "title": "Next Stop Batanes",
+        "image": "./assets/images/Projects/BATANES.png",
+        "url": "https://eankriss.github.io/next-stop-batanes.github.io/",
+        "tags": [
+          "HTML | CSS | JS"
+        ]
+      },
+      {
+        "title": "Sample Portfolio Project",
+        "image": "./assets/images/Projects/SAMPLE_PORTFOLIO.png",
+        "url": "https://eankriss.github.io/sample-personl-portfolio-project/",
+        "tags": [
+          "HTML | CSS | JS"
+        ]
+      },
+      {
+        "title": "Black Olives Cafe System",
+        "image": "./assets/images/Projects/BOC.png",
+        "url": "https://drive.google.com/drive/folders/1d5-J1Yar7V6LfKNLSFKpV4GNNAfORtZO?usp=sharing",
+        "tags": [
+          "VB.NET | MYSQL | XAMPP"
+        ]
+      },
+      {
+        "title": "Scheduling Algorithm System",
+        "image": "./assets/images/Projects/SCHEDULING.png",
+        "url": "https://drive.google.com/drive/folders/1Xe1GNEqmdBmpzUKmVUkGWrvC2KDLSpZn?usp=drive_link",
+        "tags": [
+          "VB.NET"
+        ]
+      },
+      {
+        "title": "Coffee Ordering System",
+        "image": "./assets/images/Projects/COFFEE.png",
+        "url": "https://drive.google.com/drive/folders/1bVzHbJFcKW_pujLYMIEWXmWJ5cajypS8?usp=sharing",
+        "tags": [
+          "VB.NET"
+        ]
+      },
+      {
+        "title": "BMI Calculator",
+        "image": "./assets/images/Projects/BMI.png",
+        "url": "https://github.com/eankriss/BMI_CALCULATOR",
+        "tags": [
+          "JAVA | JAVA OOP"
+        ]
+      },
+      {
+        "title": "Book Information System",
+        "image": "./assets/images/Projects/BOOK.png",
+        "url": "https://github.com/eankriss/Book-Information",
+        "tags": [
+          "C++"
+        ]
+      },
+      {
+        "title": "Ameritel Website Design",
+        "image": "./assets/images/Projects/AMERITELFIGMA.png",
+        "url": "https://www.figma.com/design/MU0XLGtpPe9vl1bCbALHEr/AMERITEL?node-id=0-1&t=JzELrB44UtgyE7Ju-1",
+        "tags": [
+          "Figma | UI/UX | FRONTEND"
+        ]
+      },
+      {
+        "title": "Easy PC Website Design",
+        "image": "./assets/images/Projects/EASYPC.png",
+        "url": "https://www.figma.com/design/ZmRfUrpvcCd4mMqnxUFMPF/Easy-PC?node-id=0-1&t=z2XQmpN75NEDuLb0-1",
+        "tags": [
+          "Figma | UI/UX | FRONTEND"
+        ]
+      },
+      {
+        "title": "DHVSU Class Scheduling Website Design",
+        "image": "./assets/images/Projects/DHVSU.png",
+        "url": "https://www.figma.com/design/8OUzIkjcAS7Vk6RedkNBSR/Class-Scheduling-(User-Interface)?node-id=41-8&t=iRkHNwGE6Q5wlaww-1",
+        "tags": [
+          "Figma | UI/UX | FRONTEND"
+        ]
+      }
+    ]
+  },
+  "skills": {
+    "subtitle": "Skills",
+    "title": "Programming Skills",
+    "background": "./assets/images/skills-bg.png",
+    "items": [
+      {
+        "name": "WordPress",
+        "level": 95
+      },
+      {
+        "name": "HTML & CSS",
+        "level": 90
+      },
+      {
+        "name": "PHP",
+        "level": 90
+      },
+      {
+        "name": "MYSQL",
+        "level": 90
+      },
+      {
+        "name": "JavaScript",
+        "level": 80
+      },
+      {
+        "name": "Elementor",
+        "level": 95
+      },
+      {
+        "name": "VB.NET",
+        "level": 95
+      },
+      {
+        "name": "JAVA",
+        "level": 80
+      },
+      {
+        "name": "C++",
+        "level": 85
+      },
+      {
+        "name": "UI/UX (Figma)",
+        "level": 90
+      }
+    ]
+  },
+  "experience": {
+    "subtitle": "Experience",
+    "title": "Working Period",
+    "items": [
+      {
+        "period": "March, 2024 - June, 2024",
+        "role": "Intern WordPress Developer",
+        "address": "Ameritel BPO Services Inc, Clark Freeport Pampanga PH"
+      },
+      {
+        "period": "January 02, 2025 - Present",
+        "role": "Associate Web Developer",
+        "address": "SearhWorks.PH, San Fernando Pampanga PH"
+      }
+    ]
+  },
+  "certificates": {
+    "subtitle": "Certifications",
+    "title": "Courses/Webinar",
+    "items": [
+      {
+        "title": "Become a Web Developer Introduction to jQuery",
+        "date": "2024-10-02",
+        "image": "./assets/images/Certificates/Become a Web Developer Introduction to jQuery E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/lSd25z0QmNb"
+      },
+      {
+        "title": "Python for Beginners",
+        "date": "2024-09-08",
+        "image": "./assets/images/Certificates/Python for Beginners E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/4aaoOSn3IMb"
+      },
+      {
+        "title": "WordPress Fundamentals Content Management System (CMS)",
+        "date": "2024-09-04",
+        "image": "./assets/images/Certificates/Alison WordPress Fundamentals Content Management System (CMS) E-Certificate.png",
+        "url": "#certificates"
+      },
+      {
+        "title": "WorPress Plugin Development From Idea to Implementation",
+        "date": "2024-08-31",
+        "image": "./assets/images/Certificates/Alison WorPress Plugin Development From Idea to Implementation E-Certificate.png",
+        "url": "#certificates"
+      },
+      {
+        "title": "Use WordPress to Create a Blog for your Business",
+        "date": "2024-08-24",
+        "image": "./assets/images/Certificates/Use WordPress to Create a Blog for your Business E-Certificate.jpg",
+        "url": "https://www.coursera.org/account/accomplishments/records/TZG05ALG3592"
+      },
+      {
+        "title": "Increase SEO Traffic with WordPress",
+        "date": "2024-08-22",
+        "image": "./assets/images/Certificates/Increase SEO Traffic with WordPress E-Certificate.png",
+        "url": "https://www.coursera.org/account/accomplishments/records/R9MBSGE5L00B"
+      },
+      {
+        "title": "Introduction to Front End Development",
+        "date": "2024-08-20",
+        "image": "./assets/images/Certificates/Introduction to Front End Development E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/CtICRpyvdMb"
+      },
+      {
+        "title": "Web Development for Beginners",
+        "date": "2024-08-19",
+        "image": "./assets/images/Certificates/Web Development for Beginners E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/aRwjshPSbMb"
+      },
+      {
+        "title": "Full-Stack Development 101 What is Full-Stack Development",
+        "date": "2024-08-18",
+        "image": "./assets/images/Certificates/Full-Stack Development 101 What is Full-Stack Development E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/3AFVBIeeaMb"
+      },
+      {
+        "title": "Become a Content Manager Introduction to WordPress",
+        "date": "2024-08-16",
+        "image": "./assets/images/Certificates/Become a Content Manager Introduction to WordPress E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/LfryDvDF8Lb"
+      },
+      {
+        "title": "Introduction to PHP",
+        "date": "2024-08-16",
+        "image": "./assets/images/Certificates/Introduction to PHP E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/KoaLPUqT6Lb"
+      },
+      {
+        "title": "Introduction to SQL",
+        "date": "2024-08-15",
+        "image": "./assets/images/Certificates/Introduction to SQL E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/rCZO15B14Lb"
+      },
+      {
+        "title": "JavaScript for Beginners",
+        "date": "2024-08-13",
+        "image": "./assets/images/Certificates/JavaScript for Beginners E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/8Z6D5uhH1Lb"
+      },
+      {
+        "title": "Introduction to CSS",
+        "date": "2024-08-12",
+        "image": "./assets/images/Certificates/Introduction to CSS E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/r6GQ5mk8ZLb"
+      },
+      {
+        "title": "Introduction to HTML",
+        "date": "2024-08-11",
+        "image": "./assets/images/Certificates/Introduction to HTML E-Certificate.png",
+        "url": "https://simpli-web.app.link/e/Z5yYR4xuYLb"
+      },
+      {
+        "title": "Create your E-commerce store with Shopify",
+        "date": "2024-08-05",
+        "image": "./assets/images/Certificates/Create your E-commerce store with Shopify E-Certificate.png",
+        "url": "https://www.coursera.org/account/accomplishments/records/VVE4590CPRAO"
+      },
+      {
+        "title": "Build a free website with WordPress",
+        "date": "2024-07-27",
+        "image": "./assets/images/Certificates/Build a free website with WordPress E-Certificate.png",
+        "url": "https://www.coursera.org/account/accomplishments/records/TZ8QYKSBTDN5"
+      },
+      {
+        "title": "Responsive Web Design",
+        "date": "2024-07-16",
+        "image": "./assets/images/Certificates/Responsive Web Design E-Certificate.png",
+        "url": "https://freecodecamp.org/certification/Kryz-Ian/responsive-web-design"
+      },
+      {
+        "title": "Build a Full Website using WordPress",
+        "date": "2024-07-09",
+        "image": "./assets/images/Certificates/Build a Full Website using WordPress E-Certificate.jpg",
+        "url": "https://www.coursera.org/account/accomplishments/records/UKV8DAR5BTZ9"
+      },
+      {
+        "title": "Introduction to Cloud Computing on AWS",
+        "date": "2022-09-22",
+        "image": "./assets/images/Certificates/MOT IntroToCloud E-Certificate.jpg",
+        "url": "#certificates"
+      }
+    ]
+  },
+  "contact": {
+    "subtitle": "Contact",
+    "title": "Get In Touch",
+    "text": "Please fill out the form on this section to contact with me. You can also reach out me through my Gmail or my Phone number",
+    "address": "87 Banag, Balucuc, Apalit, Pampanga",
+    "phone": "09453084255",
+    "email": "calaustro.kryzian11@gmail.com",
+    "web3forms_key": "ac060ff2-21bc-4610-a906-3ce3c72a9206"
+  },
+  "footer": {
+    "copyright": "&copy; 2025. All Rights Reserved. Created by"
+  }
+}
