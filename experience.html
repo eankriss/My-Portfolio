@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post — Kryz-Ian</title>
+  <title>Work Experience — Kryz-Ian</title>
 
   <!-- apply the saved theme (default: light) before paint to avoid a flash -->
   <script>
@@ -55,7 +55,7 @@
           </li>
 
           <li>
-            <a href="./experience.html" class="navbar-link" data-nav-link>Work Experience</a>
+            <a href="./experience.html" class="navbar-link active" aria-current="page" data-nav-link>Work Experience</a>
           </li>
 
           <li>
@@ -63,7 +63,7 @@
           </li>
 
           <li data-blog-nav>
-            <a href="./blog.html" class="navbar-link active" aria-current="page" data-nav-link>Blogs</a>
+            <a href="./blog.html" class="navbar-link" data-nav-link>Blogs</a>
           </li>
 
           <li>
@@ -90,32 +90,34 @@
   </header>
 
   <main>
-    <article class="section blog-post page-section">
-      <div class="container">
-
-        <div class="post-layout" data-post-layout>
-
-          <div class="post" data-post></div>
-
-          <aside class="post-aside" aria-label="post sidebar" data-post-aside hidden>
-            <nav class="post-toc" aria-label="on this page" data-post-toc hidden>
-              <p class="post-aside-title">On this page</p>
-              <ol class="post-toc-list" data-post-toc-list></ol>
-            </nav>
-
-            <div data-post-recent hidden>
-              <p class="post-aside-title">Recent blogs</p>
-
-              <ul class="post-aside-list" data-post-aside-list></ul>
-            </div>
-          </aside>
-
-        </div>
-
-      </div>
-    </article>
-
     <article>
+
+      <!-- PAGE HEADER -->
+
+      <section class="page-hero" aria-label="work experience">
+        <div class="container">
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <a href="./index.html">Home</a>
+            <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+            <span aria-current="page">Work Experience</span>
+          </nav>
+
+          <p class="section-subtitle" data-experience-subtitle>Experience</p>
+
+          <h1 class="h1 page-title" data-experience-title>Working Period</h1>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+
+      <section class="section page-body" aria-label="work history">
+        <div class="container">
+          <ol class="xp-timeline" data-xp-timeline>
+            <span class="xp-line" aria-hidden="true"><span class="xp-line-fill" data-xp-fill></span></span>
+          </ol>
+        </div>
+      </section>
+
       <!-- GET IN TOUCH -->
 
       <section class="section cta" aria-label="get in touch">
@@ -154,12 +156,8 @@
     </div>
   </footer>
 
-  <!-- markdown rendering for the post body -->
-  <script src="https://unpkg.com/marked@12.0.2/marked.min.js" defer></script>
-
   <script src="./assets/js/common.js" defer></script>
-  <script src="./assets/js/lightbox.js" defer></script>
-  <script src="./assets/js/blog.js" defer></script>
+  <script src="./assets/js/pages.js" defer></script>
   <script src="./assets/js/script.js" defer></script>
 
   <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>

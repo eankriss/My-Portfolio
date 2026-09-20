@@ -43,31 +43,31 @@
         <ul class="navbar-list">
 
           <li>
-            <a href="./index.html#home" class="navbar-link" data-nav-link>Home</a>
+            <a href="./index.html" class="navbar-link" data-nav-link>Home</a>
           </li>
 
           <li>
-            <a href="./index.html#portfolio" class="navbar-link" data-nav-link>Projects</a>
+            <a href="./projects.html" class="navbar-link" data-nav-link>Projects</a>
           </li>
 
           <li>
-            <a href="./index.html#skills" class="navbar-link" data-nav-link>Skills</a>
+            <a href="./skills.html" class="navbar-link" data-nav-link>Skills</a>
           </li>
 
           <li>
-            <a href="./index.html#work-experience" class="navbar-link" data-nav-link>Work Experience</a>
+            <a href="./experience.html" class="navbar-link" data-nav-link>Work Experience</a>
           </li>
 
           <li>
-            <a href="./index.html#certificates" class="navbar-link" data-nav-link>Certifications</a>
+            <a href="./certifications.html" class="navbar-link" data-nav-link>Certifications</a>
           </li>
 
-          <li>
+          <li data-blog-nav>
             <a href="./blog.html" class="navbar-link active" aria-current="page" data-nav-link>Blogs</a>
           </li>
 
           <li>
-            <a href="./index.html#contact" class="navbar-link" data-nav-link>Contact</a>
+            <a href="./contact.html" class="navbar-link" data-nav-link>Contact</a>
           </li>
 
         </ul>
@@ -92,54 +92,62 @@
   <main>
     <article>
 
-      <section class="section blog page-section" aria-label="blog archive">
+      <!-- PAGE HEADER -->
+
+      <section class="page-hero" aria-label="blogs">
+        <div class="container">
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <a href="./index.html">Home</a>
+            <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+            <span aria-current="page">Blogs</span>
+          </nav>
+
+          <p class="section-subtitle" data-blog-subtitle>Blogs</p>
+
+          <h1 class="h1 page-title" data-blog-title>All Posts</h1>
+        </div>
+      </section>
+
+      <!-- POSTS -->
+
+      <section class="section blog page-body" aria-label="blog archive">
         <div class="container">
 
-          <p class="section-subtitle" data-blog-subtitle></p>
+          <div class="blog-toolbar" data-blog-toolbar hidden>
+            <label class="blog-search">
+              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+              <input type="search" placeholder="Search posts…" aria-label="search posts" data-blog-search>
+            </label>
 
-          <h1 class="h2 section-title" data-blog-title></h1>
+            <div class="filter-chips" role="group" aria-label="filter by tag" data-blog-tags></div>
 
-          <ul class="blog-list" data-blog-list></ul>
+            <p class="gallery-count" aria-live="polite" data-blog-count></p>
+          </div>
+
+          <ul class="blog-list blog-archive" data-blog-list></ul>
 
         </div>
       </section>
 
-      <!-- CONTACT -->
+      <!-- GET IN TOUCH -->
 
-      <section class="section contact" id="contact" aria-label="contact">
+      <section class="section cta" aria-label="get in touch">
         <div class="container">
 
-          <div class="contact-content">
+          <div class="cta-card">
+            <div class="cta-content">
+              <p class="section-subtitle" data-cta-subtitle>Get In Touch</p>
 
-            <p class="section-subtitle" data-contact-subtitle></p>
+              <h2 class="h2 section-title" data-cta-title>Let's work together</h2>
 
-            <h2 class="h2 section-title" data-contact-title></h2>
+              <p class="section-text" data-cta-text>Have a project in mind or just want to say hello? I'd love to hear from you.</p>
+            </div>
 
-            <p class="section-text" data-contact-text></p>
-
-            <ul class="contact-list" data-contact-list></ul>
-
-          </div>
-
-          <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="contact-form">
-
-            <input type="hidden" name="access_key" value="" data-web3forms-key>
-
-            <input type="text" id="name" name="name" aria-label="name" placeholder="Name" required class="input-field">
-
-            <input type="email" id="email" name="email_address" aria-label="email" placeholder="Email" required
-              class="input-field">
-
-            <textarea name="message" id="message" aria-label="message" placeholder="Message" required
-              class="input-field"></textarea>
-
-            <button type="submit" class="submit-btn">
-              <span class="span">Submit</span>
-
+            <a href="./contact.html" class="cta-btn">
+              <span data-cta-button>Contact Me</span>
               <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-            </button>
-
-          </form>
+            </a>
+          </div>
 
         </div>
       </section>
@@ -160,6 +168,7 @@
   </footer>
 
   <script src="./assets/js/common.js" defer></script>
+  <script src="./assets/js/lightbox.js" defer></script>
   <script src="./assets/js/blog.js" defer></script>
   <script src="./assets/js/script.js" defer></script>
 

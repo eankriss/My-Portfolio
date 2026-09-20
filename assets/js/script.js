@@ -136,12 +136,18 @@ document.querySelectorAll("[data-slider]").forEach(function (slider) {
     slider.querySelector(".slider-arrows").style.display = max > 0 ? "" : "none";
   };
 
-  // autoplay — paused while the slider is hovered, focused or touched
+  // autoplay — runs only while the slider is on screen (and the tab is visible);
+  // paused while the slider is hovered, focused or touched
   let paused = false;
+  let visible = false;
   let timer;
 
+  const stopAutoplay = function () { clearInterval(timer); };
+
   const restartAutoplay = function () {
-    clearInterval(timer);
+    stopAutoplay();
+    if (!visible || document.hidden) return;
+
     timer = setInterval(function () {
       if (paused || maxScroll() <= 0) return;
       goTo(list.scrollLeft >= maxScroll() - 5 ? 0 : currentIndex() + 1);
@@ -165,7 +171,19 @@ document.querySelectorAll("[data-slider]").forEach(function (slider) {
   window.addEventListener("resize", update);
   new MutationObserver(update).observe(list, { childList: true });
   update();
-  restartAutoplay();
+
+  // start counting only once the slider scrolls into view; stop when it leaves
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      restartAutoplay();
+    }, { threshold: 0.5 }).observe(slider);
+  } else {
+    visible = true;
+    restartAutoplay();
+  }
+
+  document.addEventListener("visibilitychange", restartAutoplay);
 });
 
 
@@ -218,5 +236,114 @@ if (themeToggle) {
     const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     applyTheme(next);
     try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+}
+
+
+
+/**
+ * scroll progress bar + back-to-top button (every page)
+ */
+
+document.body.insertAdjacentHTML("beforeend", `
+  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
+  <button class="back-to-top" aria-label="back to top" data-back-to-top>
+    <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+  </button>
+`);
+
+const scrollBar = document.querySelector("[data-scroll-progress]");
+const backToTop = document.querySelector("[data-back-to-top]");
+
+const updateScrollUI = function () {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  scrollBar.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
+  backToTop.classList.toggle("is-shown", window.scrollY > 600);
+};
+
+window.addEventListener("scroll", updateScrollUI, { passive: true });
+window.addEventListener("resize", updateScrollUI);
+updateScrollUI();
+
+backToTop.addEventListener("click", function () {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+
+
+/**
+ * contact form — checked in the page, sent in the background (Web3Forms JSON
+ * API), with a spinner and an inline success / error message
+ */
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+  const submitBtn = contactForm.querySelector(".submit-btn");
+  contactForm.setAttribute("novalidate", "");
+  contactForm.insertAdjacentHTML("beforeend", `<p class="form-status" role="status" aria-live="polite" data-form-status></p>`);
+  const status = contactForm.querySelector("[data-form-status]");
+
+  const setStatus = function (type, message) {
+    status.className = `form-status${type ? " is-" + type : ""}`;
+    status.textContent = message;
+  };
+
+  const fieldError = function (field) {
+    if (field.validity.valueMissing) return `Please enter your ${field.getAttribute("aria-label")}.`;
+    if (field.validity.typeMismatch) return "Please enter a valid email address.";
+    return "";
+  };
+
+  // clear a field's error as soon as it's fixed
+  contactForm.addEventListener("input", function (event) {
+    const field = event.target;
+    if (field.classList.contains("is-invalid") && !fieldError(field)) {
+      field.classList.remove("is-invalid");
+      field.removeAttribute("aria-invalid");
+    }
+  });
+
+  contactForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const fields = Array.from(contactForm.querySelectorAll(".input-field"));
+    const invalid = fields.filter(function (field) {
+      const bad = Boolean(fieldError(field));
+      field.classList.toggle("is-invalid", bad);
+      if (bad) field.setAttribute("aria-invalid", "true"); else field.removeAttribute("aria-invalid");
+      return bad;
+    });
+
+    if (invalid.length) {
+      setStatus("error", fieldError(invalid[0]));
+      invalid[0].focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add("is-loading");
+    setStatus("", "Sending…");
+
+    fetch(contactForm.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(contactForm))),
+    })
+      .then(function (response) { return response.json().then(function (data) { return { ok: response.ok, data: data }; }); })
+      .then(function (result) {
+        if (!result.ok || result.data.success === false) throw new Error(result.data.message || "Request failed");
+        contactForm.reset();
+        contactForm.classList.add("is-sent");
+        setTimeout(function () { contactForm.classList.remove("is-sent"); }, 1600);
+        setStatus("success", "Thanks! Your message has been sent — I'll get back to you soon.");
+      })
+      .catch(function () {
+        setStatus("error", "Sorry, your message couldn't be sent. Please try again, or email me directly.");
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("is-loading");
+      });
   });
 }

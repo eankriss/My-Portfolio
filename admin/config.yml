@@ -71,7 +71,8 @@ collections:
               { name: background, label: Background image, widget: image },
               { name: items, label: Skills, widget: list, required: false, summary: "{{fields.name}} — {{fields.level}}%", fields: [
                   { name: name, label: Skill, widget: string },
-                  { name: level, label: Level (%), widget: number, value_type: int, min: 0, max: 100 }
+                  { name: level, label: Level (%), widget: number, value_type: int, min: 0, max: 100 },
+                  { name: logo, label: Logo, widget: image, required: false, hint: "Optional. Leave empty to use the skill's built-in logo." }
                 ] }
             ] }
           - { name: experience, label: Work Experience, widget: object, collapsed: true, fields: [
@@ -80,7 +81,8 @@ collections:
               { name: items, label: Positions, widget: list, required: false, summary: "{{fields.role}}", fields: [
                   { name: period, label: Period, widget: string },
                   { name: role, label: Job title, widget: string },
-                  { name: address, label: Company / address, widget: string }
+                  { name: address, label: Company / address, widget: string },
+                  { name: description, label: What I did, widget: text, required: false, hint: "Optional. One highlight per line — shown when the card is opened on the Work Experience page." }
                 ] }
             ] }
           - { name: certificates, label: Certifications, widget: object, collapsed: true, fields: [
@@ -101,6 +103,12 @@ collections:
               { name: phone, label: Phone, widget: string },
               { name: email, label: Email, widget: string },
               { name: web3forms_key, label: Web3Forms access key, widget: string }
+            ] }
+          - { name: cta, label: "Get In Touch banner", widget: object, collapsed: true, required: false, hint: "Shown at the bottom of every page except Contact", fields: [
+              { name: subtitle, label: Subtitle, widget: string, default: "Get In Touch" },
+              { name: title, label: Title, widget: string, default: "Let's work together" },
+              { name: text, label: Text, widget: text, default: "Have a project in mind or just want to say hello? I'd love to hear from you." },
+              { name: button, label: Button label, widget: string, default: "Contact Me" }
             ] }
           - { name: footer, label: Footer, widget: object, collapsed: true, fields: [
               { name: copyright, label: Copyright line, widget: string }

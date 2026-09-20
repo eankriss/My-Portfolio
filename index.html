@@ -45,7 +45,7 @@
   <header class="header" data-header>
     <div class="container">
 
-      <a href="#" class="logo">Kryz-Ian</a>
+      <a href="./index.html" class="logo">Kryz-Ian</a>
 
       <nav class="navbar" data-navbar>
         <a href="#home" class="logo navbar-logo" data-nav-logo>Kryz-Ian</a>
@@ -53,31 +53,31 @@
         <ul class="navbar-list">
 
           <li>
-            <a href="#home" class="navbar-link" data-nav-link>Home</a>
+            <a href="./index.html" class="navbar-link active" aria-current="page" data-nav-link>Home</a>
           </li>
 
           <li>
-            <a href="#portfolio" class="navbar-link" data-nav-link>Projects</a>
+            <a href="./projects.html" class="navbar-link" data-nav-link>Projects</a>
           </li>
 
           <li>
-            <a href="#skills" class="navbar-link" data-nav-link>Skills</a>
+            <a href="./skills.html" class="navbar-link" data-nav-link>Skills</a>
           </li>
 
           <li>
-            <a href="#work-experience" class="navbar-link" data-nav-link>Work Experience</a>
+            <a href="./experience.html" class="navbar-link" data-nav-link>Work Experience</a>
           </li>
 
           <li>
-            <a href="#certificates" class="navbar-link" data-nav-link>Certifications</a>
+            <a href="./certifications.html" class="navbar-link" data-nav-link>Certifications</a>
           </li>
 
           <li data-blog-nav>
-            <a href="#blog" class="navbar-link" data-nav-link>Blogs</a>
+            <a href="./blog.html" class="navbar-link" data-nav-link>Blogs</a>
           </li>
 
           <li>
-            <a href="#contact" class="navbar-link" data-nav-link>Contact</a>
+            <a href="./contact.html" class="navbar-link" data-nav-link>Contact</a>
           </li>
 
         </ul>
@@ -185,14 +185,16 @@
 
       <!-- EXPERIENCE -->
 
-      <section class="section timeline" id="work-experience" aria-label="timeline">
+      <section class="section timeline xp-home" id="work-experience" aria-label="timeline">
         <div class="container">
 
           <p class="section-subtitle" data-experience-subtitle></p>
 
           <h2 class="h2 section-title" data-experience-title></h2>
 
-          <ul class="timeline-list" data-experience-list></ul>
+          <ol class="xp-timeline xp-mini" data-xp-timeline>
+            <span class="xp-line" aria-hidden="true"><span class="xp-line-fill" data-xp-fill></span></span>
+          </ol>
 
         </div>
       </section>
@@ -307,7 +309,9 @@
 
   <!-- renders the page from content/content.json and content/blog.json (edited via /admin/) -->
   <script src="./assets/js/common.js" defer></script>
+  <script src="./assets/js/lightbox.js" defer></script>
   <script src="./assets/js/render.js" defer></script>
+  <script src="./assets/js/home.js" defer></script>
 
   <!-- custom js link -->
   <script src="./assets/js/script.js" defer></script>

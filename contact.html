@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post — Kryz-Ian</title>
+  <title>Contact — Kryz-Ian</title>
 
   <!-- apply the saved theme (default: light) before paint to avoid a flash -->
   <script>
@@ -63,11 +63,11 @@
           </li>
 
           <li data-blog-nav>
-            <a href="./blog.html" class="navbar-link active" aria-current="page" data-nav-link>Blogs</a>
+            <a href="./blog.html" class="navbar-link" data-nav-link>Blogs</a>
           </li>
 
           <li>
-            <a href="./contact.html" class="navbar-link" data-nav-link>Contact</a>
+            <a href="./contact.html" class="navbar-link active" aria-current="page" data-nav-link>Contact</a>
           </li>
 
         </ul>
@@ -90,51 +90,72 @@
   </header>
 
   <main>
-    <article class="section blog-post page-section">
-      <div class="container">
+    <article>
 
-        <div class="post-layout" data-post-layout>
+      <!-- PAGE HEADER -->
 
-          <div class="post" data-post></div>
+      <section class="page-hero contact-hero" aria-label="contact">
+        <div class="container">
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <a href="./index.html">Home</a>
+            <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+            <span aria-current="page">Contact</span>
+          </nav>
 
-          <aside class="post-aside" aria-label="post sidebar" data-post-aside hidden>
-            <nav class="post-toc" aria-label="on this page" data-post-toc hidden>
-              <p class="post-aside-title">On this page</p>
-              <ol class="post-toc-list" data-post-toc-list></ol>
-            </nav>
+          <p class="section-subtitle" data-contact-subtitle>Contact</p>
 
-            <div data-post-recent hidden>
-              <p class="post-aside-title">Recent blogs</p>
+          <h1 class="h1 page-title" data-contact-title>Get In Touch</h1>
 
-              <ul class="post-aside-list" data-post-aside-list></ul>
-            </div>
-          </aside>
+          <p class="section-text contact-intro" data-contact-text>Please fill out the form on this section to contact with me. You can also reach out me through my Gmail or my Phone number</p>
 
         </div>
+      </section>
 
-      </div>
-    </article>
+      <!-- CONTACT -->
 
-    <article>
-      <!-- GET IN TOUCH -->
-
-      <section class="section cta" aria-label="get in touch">
+      <section class="section contact-page page-body" id="contact" aria-label="contact details and form">
         <div class="container">
 
-          <div class="cta-card">
-            <div class="cta-content">
-              <p class="section-subtitle" data-cta-subtitle>Get In Touch</p>
+          <div class="contact-side">
+            <ul class="contact-methods" data-contact-methods></ul>
 
-              <h2 class="h2 section-title" data-cta-title>Let's work together</h2>
+            <div class="contact-socials">
+              <p class="contact-socials-label">Find me on</p>
+              <ul class="contact-socials-list" data-contact-socials></ul>
+            </div>
+          </div>
 
-              <p class="section-text" data-cta-text>Have a project in mind or just want to say hello? I'd love to hear from you.</p>
+          <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="contact-form contact-card">
+
+            <input type="hidden" name="access_key" value="" data-web3forms-key>
+            <input type="hidden" name="subject" value="New message from your portfolio" data-subject>
+
+            <h2 class="h3 contact-card-title">Send me a message</h2>
+
+
+            <div class="field">
+              <input type="text" id="name" name="name" aria-label="name" placeholder=" " required class="input-field" autocomplete="name">
+              <label for="name" class="field-label">Your name</label>
             </div>
 
-            <a href="./contact.html" class="cta-btn">
-              <span data-cta-button>Contact Me</span>
-              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-            </a>
-          </div>
+            <div class="field">
+              <input type="email" id="email" name="email_address" aria-label="email" placeholder=" " required class="input-field" autocomplete="email">
+              <label for="email" class="field-label">Your email</label>
+            </div>
+
+            <div class="field">
+              <textarea name="message" id="message" aria-label="message" placeholder=" " required maxlength="1000" class="input-field"></textarea>
+              <label for="message" class="field-label">Your message</label>
+              <span class="field-counter" aria-live="polite" data-char-count>0 / 1000</span>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span class="span">Send message</span>
+
+              <ion-icon name="paper-plane-outline" aria-hidden="true"></ion-icon>
+            </button>
+
+          </form>
 
         </div>
       </section>
@@ -154,12 +175,8 @@
     </div>
   </footer>
 
-  <!-- markdown rendering for the post body -->
-  <script src="https://unpkg.com/marked@12.0.2/marked.min.js" defer></script>
-
   <script src="./assets/js/common.js" defer></script>
-  <script src="./assets/js/lightbox.js" defer></script>
-  <script src="./assets/js/blog.js" defer></script>
+  <script src="./assets/js/pages.js" defer></script>
   <script src="./assets/js/script.js" defer></script>
 
   <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
