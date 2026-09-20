@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post — Kryz-Ian</title>
+  <title>Certifications — Kryz-Ian</title>
 
   <!-- apply the saved theme (default: light) before paint to avoid a flash -->
   <script>
@@ -59,11 +59,11 @@
           </li>
 
           <li>
-            <a href="./certifications.html" class="navbar-link" data-nav-link>Certifications</a>
+            <a href="./certifications.html" class="navbar-link active" aria-current="page" data-nav-link>Certifications</a>
           </li>
 
           <li data-blog-nav>
-            <a href="./blog.html" class="navbar-link active" aria-current="page" data-nav-link>Blogs</a>
+            <a href="./blog.html" class="navbar-link" data-nav-link>Blogs</a>
           </li>
 
           <li>
@@ -90,32 +90,38 @@
   </header>
 
   <main>
-    <article class="section blog-post page-section">
-      <div class="container">
-
-        <div class="post-layout" data-post-layout>
-
-          <div class="post" data-post></div>
-
-          <aside class="post-aside" aria-label="post sidebar" data-post-aside hidden>
-            <nav class="post-toc" aria-label="on this page" data-post-toc hidden>
-              <p class="post-aside-title">On this page</p>
-              <ol class="post-toc-list" data-post-toc-list></ol>
-            </nav>
-
-            <div data-post-recent hidden>
-              <p class="post-aside-title">Recent blogs</p>
-
-              <ul class="post-aside-list" data-post-aside-list></ul>
-            </div>
-          </aside>
-
-        </div>
-
-      </div>
-    </article>
-
     <article>
+
+      <!-- PAGE HEADER -->
+
+      <section class="page-hero" aria-label="certifications">
+        <div class="container">
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <a href="./index.html">Home</a>
+            <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+            <span aria-current="page">Certifications</span>
+          </nav>
+
+          <p class="section-subtitle" data-certificates-subtitle>Certifications</p>
+
+          <h1 class="h1 page-title" data-certificates-title>Courses/Webinar</h1>
+        </div>
+      </section>
+
+      <!-- CERTIFICATES -->
+
+      <section class="section news page-body" aria-label="all certifications">
+        <div class="container">
+          <div class="gallery-toolbar">
+            <div class="filter-chips" role="group" aria-label="filter certifications" data-gallery-filters></div>
+
+            <p class="gallery-count" aria-live="polite" data-gallery-count></p>
+          </div>
+
+          <ul class="gallery-grid" data-gallery="certificates"></ul>
+        </div>
+      </section>
+
       <!-- GET IN TOUCH -->
 
       <section class="section cta" aria-label="get in touch">
@@ -154,12 +160,10 @@
     </div>
   </footer>
 
-  <!-- markdown rendering for the post body -->
-  <script src="https://unpkg.com/marked@12.0.2/marked.min.js" defer></script>
-
   <script src="./assets/js/common.js" defer></script>
+  <script src="./assets/js/pages.js" defer></script>
   <script src="./assets/js/lightbox.js" defer></script>
-  <script src="./assets/js/blog.js" defer></script>
+  <script src="./assets/js/gallery.js" defer></script>
   <script src="./assets/js/script.js" defer></script>
 
   <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
