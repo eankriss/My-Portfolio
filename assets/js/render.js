@@ -19,7 +19,7 @@ const renderHero = function (hero, socials) {
     <img src="${esc(assetPath(hero.image))}" width="640" height="840" alt="${esc(hero.name)}" class="img-cover">
   `);
 
-  setText("[data-hero-role]", hero.role_prefix);
+  setText("[data-hero-role]", hero.role_prefix || "");
   setText("[data-hero-title]", hero.name);
 
   setHTML("[data-social-buttons]", socials.map(social => `
@@ -56,7 +56,6 @@ const renderBlog = function (blog) {
   // Nothing published yet — keep the section (and its nav link) out of the page.
   if (!posts.length) {
     section.remove();
-    document.querySelectorAll("[data-blog-nav]").forEach(link => link.remove());
     return;
   }
 
@@ -91,10 +90,11 @@ const startTyping = function (words) {
  * boot
  */
 
-Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL)])
-  .then(([content, blog]) => {
+Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL), loadJSON(TESTIMONIALS_URL)])
+  .then(([content, blog, testimonials]) => {
     content = content || {};
     const socials = content.socials || [];
+    syncBlogNav(blog);
 
     renderHero(content.hero || {}, socials);
     renderProjects(content.projects || {});
@@ -104,6 +104,7 @@ Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL)])
     renderCertificates(content.certificates || {});
     if (Object.keys(content).length) hideEmptySections(content);
     renderBlog(blog);
+    renderTestimonials(testimonials);
     renderContact(content.contact || {});
     renderFooter(content.footer || {}, socials);
 

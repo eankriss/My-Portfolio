@@ -8,6 +8,7 @@
 
 const CONTENT_URL = './content/content.json';
 const BLOG_URL = './content/blog.json';
+const TESTIMONIALS_URL = './content/testimonials.json';
 
 /** Escape a value for safe interpolation into HTML. */
 const esc = function (value) {
@@ -84,6 +85,18 @@ const postSlug = function (post) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
+}
+
+/**
+ * the Blogs nav link — removed when nothing is published. The answer is
+ * remembered so the inline script in <head> can hide the link before the
+ * page is drawn next time, instead of it popping out once blog.json loads.
+ */
+const syncBlogNav = function (blog) {
+  const hasPosts = publishedPosts(blog).length > 0;
+  try { localStorage.setItem("hasBlog", hasPosts ? "1" : "0"); } catch (e) {}
+  document.documentElement.classList.toggle("no-blog", !hasPosts);
+  if (!hasPosts) document.querySelectorAll("[data-blog-nav]").forEach(link => link.remove());
 }
 
 /** Published posts only, newest first. */
@@ -579,6 +592,281 @@ const renderCta = function (cta) {
   setText("[data-cta-title]", cta.title || "Let's work together");
   setText("[data-cta-text]", cta.text || "Have a project in mind or just want to say hello? I'd love to hear from you.");
   setText("[data-cta-button]", cta.button || "Contact Me");
+}
+
+
+
+/**
+ * testimonials — every page. The section is left out entirely until at least
+ * one testimonial is published in the admin.
+ */
+
+const publishedTestimonials = function (testimonials) {
+  return ((testimonials && testimonials.items) || [])
+    .filter(item => item.published !== false && item.name && item.quote);
+}
+
+const starsHTML = function (rating) {
+  return [1, 2, 3, 4, 5].map(i => {
+    const icon = rating >= i ? "star" : rating >= i - 0.5 ? "star-half" : "star-outline";
+    return `<ion-icon name="${icon}" aria-hidden="true"></ion-icon>`;
+  }).join("");
+}
+
+/** "Jane Dela Cruz" -> "JD", and a hue picked from the name so each avatar keeps its colour */
+const initialsAvatar = function (name) {
+  const words = String(name || "?").trim().split(/\s+/);
+  const initials = (words[0].charAt(0) + (words.length > 1 ? words[words.length - 1].charAt(0) : "")).toUpperCase();
+  const hue = Array.from(String(name)).reduce((sum, char) => sum + char.charCodeAt(0), 0) % 360;
+  return `<span class="testimonial-avatar is-initials" style="--hue: ${hue}" aria-hidden="true">${esc(initials)}</span>`;
+}
+
+const testimonialCardHTML = function (item, index, total) {
+  const rating = Math.max(0, Math.min(5, Number(item.rating) || 0));
+  const byline = [item.role, item.company].filter(Boolean).join(" · ");
+  const paragraphs = String(item.quote).split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+  const avatar = item.photo
+    ? `<img src="${esc(assetPath(item.photo))}" width="56" height="56" loading="lazy" alt="" class="testimonial-avatar"
+        onerror="this.outerHTML = this.nextElementSibling.innerHTML"><template>${initialsAvatar(item.name)}</template>`
+    : initialsAvatar(item.name);
+  const name = item.link
+    ? `<a href="${esc(item.link)}" target="_blank" rel="noopener" class="testimonial-name">${esc(item.name)}
+         <ion-icon name="open-outline" aria-hidden="true"></ion-icon></a>`
+    : `<span class="testimonial-name">${esc(item.name)}</span>`;
+  const quoteId = `testimonial-quote-${index}`;
+
+  return `
+    <li class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="${index + 1} of ${total}" data-testimonial-slide>
+      <figure class="testimonial-card" data-testimonial-card>
+
+        <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+
+        ${rating ? `<div class="testimonial-rating" role="img" aria-label="Rated ${rating} out of 5">${starsHTML(rating)}</div>` : ""}
+
+        <blockquote class="testimonial-quote" id="${quoteId}" data-testimonial-quote>
+          ${paragraphs.map(p => `<p>${esc(p)}</p>`).join("")}
+        </blockquote>
+
+        <button class="testimonial-more" aria-expanded="false" aria-controls="${quoteId}" data-testimonial-more hidden>
+          <span>Read more</span>
+          <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+        </button>
+
+        <figcaption class="testimonial-author">
+          ${avatar}
+          <span class="testimonial-author-text">
+            ${name}
+            ${byline ? `<span class="testimonial-role">${esc(byline)}</span>` : ""}
+          </span>
+        </figcaption>
+
+      </figure>
+    </li>
+  `;
+}
+
+const renderTestimonials = function (testimonials) {
+  const section = document.querySelector("[data-testimonials-section]");
+  if (!section) return;
+
+  const items = publishedTestimonials(testimonials);
+  if (!items.length) { section.remove(); return; }
+
+  testimonials = testimonials || {};
+  const rated = items.map(item => Number(item.rating) || 0).filter(Boolean);
+  const average = rated.length ? rated.reduce((sum, value) => sum + value, 0) / rated.length : 0;
+
+  section.innerHTML = `
+    <div class="container">
+
+      <div class="testimonials-header">
+        <div>
+          <p class="section-subtitle">${esc(testimonials.subtitle || "Testimonials")}</p>
+
+          <h2 class="h2 section-title">${esc(testimonials.title || "What People Say")}</h2>
+        </div>
+
+        ${average ? `
+          <div class="testimonials-score">
+            <span class="testimonials-score-value">${average.toFixed(1)}</span>
+            <span>
+              <span class="testimonial-rating" aria-hidden="true">${starsHTML(Math.round(average * 2) / 2)}</span>
+              <span class="testimonials-score-label">Average from ${rated.length} review${rated.length > 1 ? "s" : ""}</span>
+            </span>
+          </div>
+        ` : ""}
+      </div>
+
+      <div class="testimonials-carousel" aria-roledescription="carousel" aria-label="testimonials" data-testimonials-carousel>
+        <ul class="testimonials-track" tabindex="0" aria-label="testimonials — use the arrow keys to move" data-testimonials-track>
+          ${items.map((item, index) => testimonialCardHTML(item, index, items.length)).join("")}
+        </ul>
+
+        <div class="testimonials-controls" data-testimonials-controls>
+          <button class="testimonials-btn" aria-label="previous testimonial" data-testimonials-prev>
+            <ion-icon name="chevron-back" aria-hidden="true"></ion-icon>
+          </button>
+
+          <div class="testimonials-dots" role="group" aria-label="choose a testimonial" data-testimonials-dots></div>
+
+          <button class="testimonials-btn" aria-label="next testimonial" data-testimonials-next>
+            <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  section.hidden = false;
+  bindTestimonials(section);
+}
+
+/**
+ * the carousel — a scroll-snap track (so touch swipe and trackpads just work)
+ * with arrows, dots, arrow-key support, "Read more" on long quotes, and an
+ * autoplay whose timer is the active dot's fill animation: pausing the
+ * animation (hover, focus, touch, off screen) pauses the carousel with it
+ */
+
+const bindTestimonials = function (section) {
+  const carousel = section.querySelector("[data-testimonials-carousel]");
+  const track = section.querySelector("[data-testimonials-track]");
+  const controls = section.querySelector("[data-testimonials-controls]");
+  const dots = section.querySelector("[data-testimonials-dots]");
+  const prev = section.querySelector("[data-testimonials-prev]");
+  const next = section.querySelector("[data-testimonials-next]");
+  const slides = Array.from(track.children);
+  const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let positions = 1;
+  let active = 0;
+
+  const step = () => slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
+  const perView = () => Math.max(1, Math.round((track.clientWidth + 1) / step()));
+  const indexNow = () => Math.max(0, Math.min(positions - 1, Math.round(track.scrollLeft / step())));
+
+  const goTo = function (index) {
+    index = (index + positions) % positions;
+    track.scrollTo({ left: index * step(), behavior: reduced ? "auto" : "smooth" });
+    setActive(index);
+  };
+
+  const setActive = function (index) {
+    active = index;
+    Array.from(dots.children).forEach((dot, i) => {
+      dot.classList.toggle("is-active", i === index);
+      dot.setAttribute("aria-current", i === index ? "true" : "false");
+    });
+  };
+
+  // one dot per place the track can stop at (fewer on wider screens)
+  const layout = function () {
+    positions = Math.max(1, slides.length - perView() + 1);
+    controls.hidden = positions < 2;
+    carousel.classList.toggle("is-static", positions < 2);
+
+    if (dots.children.length !== positions) {
+      dots.innerHTML = Array.from({ length: positions }, (_, i) => `
+        <button class="testimonials-dot" aria-label="go to testimonial ${i + 1}" data-index="${i}">
+          <span class="testimonials-dot-fill" data-dot-fill></span>
+        </button>
+      `).join("");
+    }
+    setActive(indexNow());
+  };
+
+  dots.addEventListener("click", event => {
+    const dot = event.target.closest("[data-index]");
+    if (dot) goTo(Number(dot.dataset.index));
+  });
+  prev.addEventListener("click", () => goTo(active - 1));
+  next.addEventListener("click", () => goTo(active + 1));
+
+  track.addEventListener("keydown", event => {
+    if (event.target !== track) return;
+    if (event.key === "ArrowLeft") { event.preventDefault(); goTo(active - 1); }
+    if (event.key === "ArrowRight") { event.preventDefault(); goTo(active + 1); }
+  });
+
+  // keep the dots in step with swipes / trackpad scrolling
+  let scrollTimer;
+  track.addEventListener("scroll", () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => { if (indexNow() !== active) setActive(indexNow()); }, 80);
+  }, { passive: true });
+
+  // "Read more" only on quotes long enough to be clipped
+  const measure = function () {
+    track.querySelectorAll("[data-testimonial-quote]").forEach(quote => {
+      if (quote.classList.contains("is-expanded")) return;
+      const button = quote.nextElementSibling;
+      button.hidden = quote.scrollHeight <= quote.clientHeight + 2;
+    });
+  };
+
+  track.addEventListener("click", event => {
+    const button = event.target.closest("[data-testimonial-more]");
+    if (!button) return;
+    const quote = document.getElementById(button.getAttribute("aria-controls"));
+    const open = button.getAttribute("aria-expanded") !== "true";
+    quote.classList.toggle("is-expanded", open);
+    button.setAttribute("aria-expanded", open);
+    button.querySelector("span").textContent = open ? "Show less" : "Read more";
+  });
+
+  // a soft spotlight that follows the pointer across a card
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    track.addEventListener("pointermove", event => {
+      const card = event.target.closest("[data-testimonial-card]");
+      if (!card) return;
+      const box = card.getBoundingClientRect();
+      card.style.setProperty("--x", `${event.clientX - box.left}px`);
+      card.style.setProperty("--y", `${event.clientY - box.top}px`);
+    });
+  }
+
+  // autoplay: each time the active dot finishes filling, move on
+  if (!reduced) {
+    carousel.classList.add("is-autoplay");
+
+    let onScreen = !("IntersectionObserver" in window);
+    let touched = false;
+    let touchTimer;
+
+    // paused while anything is holding it: off screen, hidden tab, hover,
+    // keyboard focus, a recent touch, or a quote opened to read
+    const sync = () => carousel.classList.toggle("is-paused",
+      !onScreen || document.hidden || touched || carousel.matches(":hover") ||
+      Boolean(carousel.querySelector(":focus-visible, .is-expanded")));
+
+    dots.addEventListener("animationend", event => {
+      if (event.target.matches("[data-dot-fill]")) goTo(active + 1);
+    });
+
+    carousel.addEventListener("mouseenter", sync);
+    carousel.addEventListener("mouseleave", sync);
+    carousel.addEventListener("focusin", sync);
+    carousel.addEventListener("focusout", () => setTimeout(sync));
+    track.addEventListener("touchstart", () => { touched = true; clearTimeout(touchTimer); sync(); }, { passive: true });
+    track.addEventListener("touchend", () => { touchTimer = setTimeout(() => { touched = false; sync(); }, 4000); }, { passive: true });
+    track.addEventListener("click", () => setTimeout(sync));
+    document.addEventListener("visibilitychange", sync);
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(entries => { onScreen = entries[0].isIntersecting; sync(); }, { threshold: 0.4 })
+        .observe(carousel);
+    }
+    sync();
+  }
+
+  window.addEventListener("resize", () => { layout(); measure(); });
+  layout();
+  measure();
+
+  // photos and web fonts change the layout once they arrive
+  window.addEventListener("load", () => { layout(); measure(); });
+  if (document.fonts) document.fonts.ready.then(measure);
 }
 
 

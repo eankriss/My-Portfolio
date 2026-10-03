@@ -20,8 +20,8 @@ That's it. No OAuth app, no backend, no extra hosting.
 ## Daily use
 
 - Go to `https://eankriss.github.io/My-Portfolio/admin/`.
-- Open **Site Content → Portfolio Content** for the page itself, or **Blog → Blog Posts**
-  for articles.
+- Open **Site Content → Portfolio Content** for the page itself, **Blog → Blog Posts**
+  for articles, or **Testimonials** for testimonials.
 - Edit any section: hero photo and details, social links, projects, skills, work experience,
   certifications, contact info, footer.
 - Add a project or certificate with **Add item**, and upload its image right in the form —
@@ -41,6 +41,17 @@ That's it. No OAuth app, no backend, no extra hosting.
   (the button appears once there is a fourth post). With no published posts at all, the whole
   blog section and its nav link are removed from the home page.
 - `blog.html` lists every published post; `post.html` renders one.
+
+## Adding a testimonial
+
+- Go to **Testimonials → Testimonials → Add Testimonial**.
+- Fill in the person's name and their words. Everything else is optional: their role and
+  company, a photo (their initials are shown without one), a 1–5 star rating, and a link
+  (e.g. their LinkedIn profile or where the review was posted).
+- Turn **Published** off to hide one without deleting it.
+- The section appears on every page (above the contact form on the home page, above the
+  "Get In Touch" banner elsewhere, below the form on the Contact page) once at least one
+  testimonial is published. With none published, it isn't added to any page.
 
 Because every save is a git commit, you have full history and can revert anything from GitHub.
 

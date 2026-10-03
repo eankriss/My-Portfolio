@@ -70,18 +70,33 @@ addEventOnElem(document.querySelector("[data-nav-logo]"), "click", goToSection);
 
 
 /**
- * header active
+ * header — shrinks once the page is scrolled down and grows back at the top.
+ * Inner pages start with a solid background ("active" in their HTML) and keep
+ * it; the home page only gets it after scrolling past the hero's top.
  */
 
 const header = document.querySelector("[data-header]");
+const headerAlwaysSolid = header.classList.contains("active");
+let headerTicking = false;
+
+const updateHeader = function () {
+  headerTicking = false;
+  header.classList.toggle("is-compact", window.scrollY > 40);
+  if (!headerAlwaysSolid) header.classList.toggle("active", window.scrollY > 100);
+};
+
+// set the right size straight away (e.g. after a refresh mid-page) without easing into it
+header.classList.add("is-instant");
+updateHeader();
+requestAnimationFrame(function () {
+  requestAnimationFrame(function () { header.classList.remove("is-instant"); });
+});
 
 window.addEventListener("scroll", function () {
-  if (window.scrollY > 100) {
-    header.classList.add("active");
-  } else {
-    header.classList.remove("active");
-  }
-});
+  if (headerTicking) return;
+  headerTicking = true;
+  requestAnimationFrame(updateHeader);
+}, { passive: true });
 
 /**
  * SLIDER ARROWS + PROGRESS
@@ -91,7 +106,7 @@ document.querySelectorAll("[data-slider]").forEach(function (slider) {
   const list = slider.querySelector(".has-scrollbar");
   const prev = slider.querySelector("[data-slider-prev]");
   const next = slider.querySelector("[data-slider-next]");
-  const thumb = slider.querySelector("[data-slider-thumb]");
+  const fill = slider.querySelector("[data-slider-fill]");
   const AUTOPLAY_DELAY = 5000;
 
   const items = function () { return Array.from(list.children); };
@@ -125,11 +140,11 @@ document.querySelectorAll("[data-slider]").forEach(function (slider) {
     list.scrollTo({ left: Math.min(offsetOf(all[index]), maxScroll()), behavior: "smooth" });
   };
 
+  // the bar fills like the skill bars: the share of cards seen so far, 100% at the end
   const update = function () {
     const max = maxScroll();
-    const ratio = list.scrollWidth ? list.clientWidth / list.scrollWidth : 1;
-    thumb.style.width = (ratio * 100) + "%";
-    thumb.style.left = (max > 0 ? (list.scrollLeft / max) * (1 - ratio) * 100 : 0) + "%";
+    const seen = list.scrollWidth ? (list.scrollLeft + list.clientWidth) / list.scrollWidth : 1;
+    fill.style.width = Math.min(seen, 1) * 100 + "%";
     prev.disabled = list.scrollLeft <= 1;
     next.disabled = list.scrollLeft >= max - 1;
     slider.querySelector(".slider-controls").style.display = max > 0 ? "" : "none";

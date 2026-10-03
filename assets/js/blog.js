@@ -406,8 +406,8 @@ const bindShare = function () {
  * boot
  */
 
-Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL)])
-  .then(([content, blog]) => {
+Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL), loadJSON(TESTIMONIALS_URL)])
+  .then(([content, blog, testimonials]) => {
     content = content || {};
 
     if (document.querySelector("[data-post]")) {
@@ -419,6 +419,7 @@ Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL)])
     if (Object.keys(content).length) hideEmptySections(content);
 
     if (document.querySelector("[data-contact-list]")) renderContact(content.contact || {});
+    renderTestimonials(testimonials);
     renderCta(content.cta);
 
     renderFooter(content.footer || {}, content.socials || []);

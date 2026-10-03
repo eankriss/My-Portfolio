@@ -427,14 +427,19 @@ body {
   overflow: hidden;
 }
 
-.slider-thumb {
+/* fills like the skill bars as the slider moves */
+.slider-fill {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 0;
   border-radius: 4px;
   background-color: var(--theme-color);
-  transition: left 0.15s ease, width 0.15s ease;
+  transition: width 0.45s var(--cubic-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider-fill { transition: none; }
 }
 
 
@@ -1156,10 +1161,9 @@ textarea.input-field {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 
-  .header.active {
-    background-color: var(--white);
-    padding-block: 20px;
-  }
+  .header.active { background-color: var(--white); }
+
+  .header.is-compact { padding-block: 12px; }
 
   .nav-toggle-btn,
   .nav-overlay,
@@ -1280,22 +1284,21 @@ textarea.input-field {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 150px;
+    gap: clamp(50px, 8vw, 150px);
   }
 
+  /* sits in the right column and scales with it, keeping the face in frame on any desktop width */
   .skills-banner {
     display: block;
-    position: absolute;
-    top: 0;
-    right: 50px;
-    width: 410px;
-    height: 620px;
+    align-self: center;
+    justify-self: end;
+    width: 100%;
+    max-width: 410px;
+    aspect-ratio: 410 / 620;
     background-image: url('../images/kryz04.jpg');
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: 105%;
-    background-attachment: fixed;
-    overflow: hidden;
+    background-size: cover;
+    background-position: 62% 20%;
   }
 
 
@@ -1738,9 +1741,27 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
 
 .header .logo { transition: font-size 0.35s ease, color 0.3s ease; }
 
+/* scrolled down: the header shrinks, and grows back at the top (script.js) */
+.header.is-compact { box-shadow: 0 6px 18px -8px hsla(0, 0%, 0%, 0.18); }
+
+.header.is-compact > .container > .logo { font-size: 2.6rem; }
+
+/* no easing when the page first loads already scrolled */
+.header.is-instant,
+.header.is-instant .logo { transition: none; }
+
 @media (max-width: 991px) {
-  .header.active { padding-block: 10px; }
-  .header.active > .container > .logo { font-size: 2.8rem; }
+  .header.is-compact { padding-block: 8px; }
+  .header.is-compact > .container > .logo { font-size: 2.4rem; }
+}
+
+@media (min-width: 992px) and (max-width: 1279px) {
+  .header.is-compact > .container > .logo { font-size: 2.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header .logo { transition: none; }
 }
 
 
@@ -1768,6 +1789,8 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
   color: var(--theme-color);
   border-color: var(--theme-color);
 }
+
+.theme-toggle svg { width: 1em; height: 1em; }
 
 .theme-toggle .icon-sun { display: none; }
 
@@ -1873,6 +1896,315 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
 
 /* the contact page has no page header, so the section clears the fixed header itself */
 .contact.page-section { padding-block-end: 70px; }
+
+
+
+/*-----------------------------------*\
+  #TESTIMONIALS — every page, only when the admin has some
+\*-----------------------------------*/
+
+.testimonials { overflow: hidden; }
+
+.testimonials-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px 30px;
+  margin-block-end: 36px;
+}
+
+.testimonials-header .section-title { margin-block-end: 0; }
+
+.testimonials-score {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border-radius: var(--radius-10);
+  border: 1px solid var(--black_10);
+  background-color: var(--white);
+}
+
+.testimonials-score-value {
+  color: var(--black);
+  font-family: var(--ff-poppins);
+  font-size: 3.2rem;
+  font-weight: var(--fw-800);
+  line-height: 1;
+}
+
+.testimonials-score-label {
+  color: var(--dim-gray);
+  font-family: var(--ff-poppins);
+  font-size: 1.3rem;
+}
+
+.testimonial-rating {
+  display: flex;
+  gap: 3px;
+  color: hsl(40, 100%, 50%);
+  font-size: 1.7rem;
+}
+
+/* the track: one card on phones, two on tablets, three on desktop */
+.testimonials-track {
+  --gap: 20px;
+  --per-view: 1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - var(--gap) * (var(--per-view) - 1)) / var(--per-view));
+  gap: var(--gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* room for the cards' hover lift and shadow */
+  padding-block: 8px 24px;
+  margin-block: -8px -24px;
+}
+
+.testimonials-track::-webkit-scrollbar { display: none; }
+
+/* an opened quote grows its own card instead of stretching the whole row */
+.testimonials-track:has(.is-expanded) { align-items: start; }
+
+.testimonials-track:focus-visible { outline: 3px solid var(--theme-color); outline-offset: 4px; border-radius: var(--radius-10); }
+
+.testimonial-slide { scroll-snap-align: start; display: flex; }
+
+.testimonial-card {
+  --x: 50%;
+  --y: 0%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 30px 26px 26px;
+  border-radius: var(--radius-10);
+  border: 1px solid var(--black_10);
+  background-color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+/* spotlight that follows the pointer (position set by common.js) */
+.testimonial-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(320px circle at var(--x) var(--y), hsla(10, 100%, 57%, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.testimonial-card:hover {
+  border-color: var(--theme-color);
+  box-shadow: 0 18px 40px -18px hsla(0, 0%, 0%, 0.35);
+  transform: translateY(-5px);
+}
+
+.testimonial-card:hover::before { opacity: 1; }
+
+.testimonial-mark {
+  position: absolute;
+  inset-block-start: -18px;
+  inset-inline-end: 18px;
+  z-index: -1;
+  color: var(--theme-color);
+  font-family: Georgia, serif;
+  font-size: 13rem;
+  line-height: 1;
+  opacity: 0.14;
+  transition: transform 0.4s var(--cubic-out), opacity var(--transition);
+}
+
+.testimonial-card:hover .testimonial-mark { transform: translateY(6px) rotate(-6deg); opacity: 0.24; }
+
+.testimonial-quote {
+  color: var(--sonic-silver);
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.testimonial-quote p + p { margin-block-start: 10px; }
+
+.testimonial-quote.is-expanded { display: block; -webkit-line-clamp: unset; }
+
+.testimonial-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-block-start: -8px;
+  color: var(--theme-color);
+  font-family: var(--ff-poppins);
+  font-size: 1.4rem;
+  font-weight: var(--fw-600);
+}
+
+.testimonial-more[hidden] { display: none; }
+
+.testimonial-more ion-icon { transition: transform var(--transition); }
+
+.testimonial-more[aria-expanded="true"] ion-icon { transform: rotate(180deg); }
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-block-start: auto;
+  padding-block-start: 18px;
+  border-block-start: 1px solid var(--black_10);
+}
+
+.testimonial-avatar {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--theme-color);
+}
+
+.testimonial-avatar.is-initials {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, hsl(var(--hue), 70%, 55%), hsl(calc(var(--hue) + 40), 75%, 45%));
+  color: var(--fixed-white);
+  font-family: var(--ff-poppins);
+  font-size: 1.7rem;
+  font-weight: var(--fw-700);
+}
+
+.testimonial-author-text { display: flex; flex-direction: column; min-width: 0; }
+
+.testimonial-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--black);
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-600);
+  line-height: 1.4;
+}
+
+a.testimonial-name { transition: color var(--transition); }
+
+a.testimonial-name:is(:hover, :focus-visible) { color: var(--theme-color); }
+
+a.testimonial-name ion-icon { font-size: 1.4rem; }
+
+.testimonial-role {
+  color: var(--dim-gray);
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+/* arrows + dots */
+.testimonials-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-block-start: 32px;
+}
+
+.testimonials-controls[hidden] { display: none; }
+
+.testimonials-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--black_10);
+  background-color: var(--white);
+  color: var(--black);
+  font-size: 2rem;
+  transition: var(--transition);
+}
+
+.testimonials-btn:is(:hover, :focus-visible) {
+  background-color: var(--theme-color);
+  border-color: var(--theme-color);
+  color: var(--on-accent);
+}
+
+.testimonials-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+
+.testimonials-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  background-color: var(--black_20);
+  overflow: hidden;
+  transition: width 0.35s var(--cubic-out), background-color var(--transition);
+}
+
+/* a larger tap target than the dot itself */
+.testimonials-dot::after { content: ""; position: absolute; inset: -10px -4px; }
+
+.testimonials-dot:hover { background-color: var(--black_30); }
+
+.testimonials-dot.is-active { width: 34px; background-color: hsla(10, 100%, 57%, 0.3); }
+
+.testimonials-dot-fill {
+  position: absolute;
+  inset: 0;
+  background-color: var(--theme-color);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.testimonials-dot.is-active .testimonials-dot-fill { transform: scaleX(1); }
+
+/* autoplay: the active dot fills up, then the carousel moves on */
+.is-autoplay .testimonials-dot.is-active .testimonials-dot-fill {
+  animation: testimonial-timer 6s linear forwards;
+}
+
+.is-autoplay.is-paused .testimonials-dot-fill { animation-play-state: paused; }
+
+@keyframes testimonial-timer {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (min-width: 768px) {
+  .testimonials-track { --per-view: 2; --gap: 24px; }
+
+  .testimonial-card { padding: 34px 30px 28px; }
+}
+
+@media (min-width: 1200px) {
+  .testimonials-track { --per-view: 3; --gap: 30px; }
+}
+
+:root[data-theme="dark"] .testimonials-score,
+:root[data-theme="dark"] .testimonial-card { background-color: var(--cultured); }
+
+:root[data-theme="dark"] .testimonial-avatar { box-shadow: 0 0 0 3px var(--cultured), 0 0 0 5px var(--theme-color); }
+
+@media (hover: none) {
+  .testimonial-card:hover { transform: none; box-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-card,
+  .testimonial-mark,
+  .testimonials-dot { transition: none; }
+
+  .testimonial-card:hover { transform: none; }
+}
 
 
 
@@ -3368,6 +3700,9 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
 \*-----------------------------------*/
 
 @view-transition { navigation: auto; }
+
+/* set before paint by the inline script in <head>, so the nav doesn't shift */
+.no-blog [data-blog-nav] { display: none; }
 
 .header { view-transition-name: site-header; }
 
