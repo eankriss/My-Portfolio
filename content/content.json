@@ -1,9 +1,9 @@
 {
   "hero": {
     "image": "./assets/images/kryz01.jpg",
-    "role_prefix": "Associate",
+    "role_prefix": "",
     "typed_words": [
-      "Web Developer"
+      "Associate Web Developer"
     ],
     "name": "Kryz-Ian L. Calaustro",
     "email": "calaustro.kryzian11@gmail.com",
@@ -221,43 +221,53 @@
     "items": [
       {
         "name": "WordPress",
-        "level": 95
+        "level": 95,
+        "logo": ""
       },
       {
         "name": "HTML & CSS",
-        "level": 90
+        "level": 90,
+        "logo": ""
       },
       {
         "name": "PHP",
-        "level": 90
+        "level": 90,
+        "logo": ""
       },
       {
         "name": "MYSQL",
-        "level": 90
+        "level": 90,
+        "logo": ""
       },
       {
         "name": "JavaScript",
-        "level": 80
+        "level": 80,
+        "logo": ""
       },
       {
         "name": "Elementor",
-        "level": 95
+        "level": 95,
+        "logo": ""
       },
       {
         "name": "VB.NET",
-        "level": 95
+        "level": 95,
+        "logo": ""
       },
       {
         "name": "JAVA",
-        "level": 80
+        "level": 80,
+        "logo": ""
       },
       {
         "name": "C++",
-        "level": 85
+        "level": 85,
+        "logo": ""
       },
       {
         "name": "UI/UX (Figma)",
-        "level": 90
+        "level": 90,
+        "logo": ""
       }
     ]
   },
@@ -268,12 +278,14 @@
       {
         "period": "March, 2024 - June, 2024",
         "role": "Intern WordPress Developer",
-        "address": "Ameritel BPO Services Inc, Clark Freeport Pampanga PH"
+        "address": "Ameritel BPO Services Inc, Clark Freeport Pampanga PH",
+        "description": ""
       },
       {
         "period": "January 02, 2025 - Present",
         "role": "Associate Web Developer",
-        "address": "SearhWorks.PH, San Fernando Pampanga PH"
+        "address": "SearhWorks.PH, San Fernando Pampanga PH",
+        "description": ""
       }
     ]
   },
@@ -412,6 +424,7 @@
     "email": "calaustro.kryzian11@gmail.com",
     "web3forms_key": "ac060ff2-21bc-4610-a906-3ce3c72a9206"
   },
+  "cta": null,
   "footer": {
     "copyright": "&copy; 2026. All Rights Reserved. Created by"
   }

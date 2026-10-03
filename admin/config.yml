@@ -25,7 +25,7 @@ collections:
         fields:
           - { name: hero, label: Hero, widget: object, fields: [
               { name: image, label: Photo, widget: image },
-              { name: role_prefix, label: Role prefix, widget: string, hint: "Text before the animated words, e.g. 'Associate'" },
+              { name: role_prefix, label: Role prefix, widget: string, required: false, hint: "Text before the animated words, e.g. 'Associate'" },
               { name: typed_words, label: Animated words, widget: list, required: false, field: { name: word, label: Word, widget: string } },
               { name: name, label: Full name, widget: string },
               { name: email, label: Email, widget: string },
@@ -143,3 +143,31 @@ collections:
                   hint: "Short teaser shown on the cards. Two or three sentences." }
               - { name: tags, label: Tags, widget: list, required: false, field: { name: tag, label: Tag, widget: string } }
               - { name: body, label: Body, widget: markdown }
+
+  - name: testimonials
+    label: Testimonials
+    files:
+      - name: testimonials
+        label: Testimonials
+        file: content/testimonials.json
+        fields:
+          - { name: subtitle, label: Section subtitle, widget: string, default: "Testimonials" }
+          - { name: title, label: Section title, widget: string, default: "What People Say" }
+          - name: items
+            label: Testimonials
+            label_singular: Testimonial
+            widget: list
+            required: false
+            summary: "{{fields.name}}"
+            collapsed: true
+            hint: "Shown on every page. The section stays hidden until at least one testimonial is published."
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role / position, widget: string, required: false }
+              - { name: company, label: Company, widget: string, required: false }
+              - { name: photo, label: Photo, widget: image, required: false, hint: "Optional. Their initials are shown when empty." }
+              - { name: rating, label: Rating (1–5 stars), widget: number, value_type: int, min: 1, max: 5, default: 5, required: false,
+                  hint: "Optional. Leave empty to show no stars." }
+              - { name: quote, label: Testimonial, widget: text, hint: "Leave a blank line between paragraphs." }
+              - { name: link, label: Link, widget: string, required: false, hint: "Optional, e.g. their LinkedIn profile or where the review was posted." }
+              - { name: published, label: Published, widget: boolean, default: true, hint: "Turn off to hide this testimonial without deleting it." }

@@ -143,8 +143,8 @@ const renderContactPage = function (contact, socials) {
   document.getElementById("contactForm").addEventListener("reset", () => setTimeout(count));
 }
 
-Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL)])
-  .then(([content, blog]) => {
+Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL), loadJSON(TESTIMONIALS_URL)])
+  .then(([content, blog, testimonials]) => {
     content = content || {};
 
     renderProjects(content.projects || {});
@@ -155,13 +155,12 @@ Promise.all([loadJSON(CONTENT_URL), loadJSON(BLOG_URL)])
     renderCertificates(content.certificates || {});
     renderContact(content.contact || {});
     renderContactPage(content.contact || {}, content.socials || []);
+    renderTestimonials(testimonials);
     renderCta(content.cta);
     renderFooter(content.footer || {}, content.socials || []);
 
     if (Object.keys(content).length) hideEmptySections(content);
-    if (!publishedPosts(blog).length) {
-      document.querySelectorAll("[data-blog-nav]").forEach(link => link.remove());
-    }
+    syncBlogNav(blog);
 
     showEmpty("[data-projects-list]", "No projects to show yet — check back soon.");
     showEmpty("[data-skills-grid]", "No skills to show yet — check back soon.");

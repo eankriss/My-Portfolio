@@ -32,6 +32,7 @@
     children(document.querySelector("[data-certificates-list]"));
     children(document.querySelector("[data-skills-list]"));
     children(document.querySelector("[data-blog-list]"));
+    children(document.querySelector("[data-testimonials-track]"));
     children(document.querySelector("[data-contact-list]"));
     document.querySelectorAll(".contact-form").forEach(single);
 
