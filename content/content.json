@@ -43,6 +43,14 @@
     "title": "What Projects Have I Done?",
     "items": [
       {
+        "title": "Crack Windshield Repair",
+        "image": "/assets/images/uploads/Crackwindshield Repair.webp",
+        "url": "https://crackwindshieldrepairandwindowtinting.com/",
+        "tags": [
+          "WordPress | Elementor | Custom Plugins Addons | ACF"
+        ]
+      },
+      {
         "title": "Platinum Touch Industries",
         "image": "/assets/images/uploads/PTI.webp",
         "url": "https://pti-llc.net/",
