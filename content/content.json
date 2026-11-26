@@ -75,17 +75,23 @@
         ]
       },
       {
-        "title": "Jeff Javierto",
-        "image": "/assets/images/uploads/Jeff Javierto.webp",
-        "url": "https://jeffjavierto.com/",
-        "tags": [
-          "WordPress | CMS | Elementor"
-        ]
+        "title": "Liquimech",
+        "image": "/assets/images/uploads/Liquimech.webp",
+        "url": "https://liquimech.com.au/",
+        "tags": []
       },
       {
         "title": "Savers Group Holdings Inc.",
         "image": "/assets/images/uploads/Savers.webp",
         "url": "https://saversgroupholdings.com/",
+        "tags": [
+          "WordPress | CMS | Elementor"
+        ]
+      },
+      {
+        "title": "Jeff Javierto",
+        "image": "/assets/images/uploads/Jeff Javierto.webp",
+        "url": "https://jeffjavierto.com/",
         "tags": [
           "WordPress | CMS | Elementor"
         ]
